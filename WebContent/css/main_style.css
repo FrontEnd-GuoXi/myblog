@@ -1,0 +1,20 @@
+.container-fluid{
+	width: 50%;
+}
+.navbar-brand{
+	color: rgba(255,255,255,1)!important;
+	font-weight: 600;
+	padding-right: 40px;
+}
+.navbar-inverse{
+	min-height: 80px;
+}
+.navbar-brand, ul.navbar-nav > li > a{
+	height:80px!important;
+	line-height: 50px;
+}
+ul.navbar-nav > li > a{
+}
+.wrap-nav{
+	overflow: hidden;
+}

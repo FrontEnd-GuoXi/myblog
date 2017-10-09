@@ -1,0 +1,59 @@
+*{
+	font-size: 13px;
+}
+.container{
+	padding-top: 30px;
+}
+
+.nav-container{
+	width: 15%;
+	margin-right: 5%;
+	float: left;
+}
+.nav-head{
+	background-color: rgba(155,155,155,.3);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+.list-group{
+	cursor: pointer;
+}
+.list-container{
+	width: 80%;
+	float: left;
+}
+.list-group-item{
+	transition: background 0.5s;
+}
+/* _______________________________鍏叡閮ㄥ垎缁撴潫________________________________________ */
+
+.row:nth-child(1) > div{
+     height: 30px!important;
+     line-height: 30px!important;
+ }
+.row:nth-child(1) > .col-md-1{
+	border-top-left-radius: 4px;
+}
+.row:nth-child(1) > .col-md-3{
+	border-top-right-radius: 4px;
+}
+.row > div {
+	border: 1px solid rgb(155,155,155);
+	height: 40px;
+	text-align: center;
+	line-height: 38px;
+}
+.btn-group > .btn{
+	font-size: 12px;
+}
+/* 鈥斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�旂鐞嗘枃绔犻儴鍒嗙粨鏉熲�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�斺�� */
+.list-container{
+	width: 80%;
+	float: left;
+}

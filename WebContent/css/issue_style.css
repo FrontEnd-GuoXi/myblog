@@ -1,0 +1,19 @@
+*{
+	font-size: 13px;
+}
+.container{
+	padding-top: 30px;
+}
+
+.nav-container{
+	width: 15%;
+	margin-right: 5%;
+	float: left;
+}
+.nav-head{
+	background-color: rgba(155,155,155,.3);
+}
+.list-group{
+	cursor: pointer;
+}
+
