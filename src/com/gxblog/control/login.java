@@ -28,6 +28,7 @@ public class login extends HttpServlet {
         boolean isExist;
         
         response.setContentType("charset=utf-8");
+        PrintWriter out = response.getWriter();
         
         username = request.getParameter("username");
         password = request.getParameter("password");
@@ -42,16 +43,15 @@ public class login extends HttpServlet {
         		 user.setPassword(password);
         		 
         		 HttpSession session = request.getSession();
-        		 System.out.println(session+"---------login");
         		 session.setAttribute("user", user);
-        		 System.out.println(session.getAttribute("user")+"...........");
-        		 //response.sendRedirect("http://localhost:8080/myBlog/manageBlog");
-        		 response.sendRedirect("html/background.html");
+        		 JSONObject LoginSuccess = new JSONObject();
+        		 LoginSuccess.put("status", true);
+        		 out.println(LoginSuccess.toString());
         	}
         }else{
         	     JSONObject LoginDefeat = new JSONObject();
+        	     LoginDefeat.put("status", false);
         	     LoginDefeat.put("word","’À∫≈∫Õ√‹¬Î≤ª∆•≈‰£°£°£°");
-        	     PrintWriter out = response.getWriter();
         	     out.println(LoginDefeat.toString());
         }
 		

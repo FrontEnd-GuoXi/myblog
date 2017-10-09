@@ -45,14 +45,12 @@
       function manageBlogAjax(){
       	  var str = null;
       	  $.ajax({
-      	  	    url:'http://localhost:8080/myBlog/manageBlog',
+      	  	    url:'../manageBlog',
       	  	    type:'GET',
       	  	    dataType:'json',
       	  	    async:false,
       	  	    success:function(data){
-      	  	    	console.log("..............");
-      	  	    	var dataArr = JSON.parse(data);
-      	  	    	console.log(data);
+      	  	    	var dataArr = data;
       	  	    	for(var i=0; i<dataArr.length; i++){
       	  	        str = ` <div class=".container-fluid">
 								<div class="row">
