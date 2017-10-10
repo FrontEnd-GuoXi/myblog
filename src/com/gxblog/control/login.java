@@ -1,6 +1,7 @@
 package com.gxblog.control;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,9 +13,11 @@ import java.io.PrintWriter;
 import com.gxblog.entity.user;
 import com.gxblog.dao.*;
 import org.json.simple.JSONObject;
+import java.util.HashMap;
 
 public class login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private int i=0;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
          doPost(request,response);
@@ -26,6 +29,7 @@ public class login extends HttpServlet {
         boolean isUsername;
         boolean isPassword;
         boolean isExist;
+        
         
         response.setContentType("charset=utf-8");
         PrintWriter out = response.getWriter();
@@ -43,7 +47,15 @@ public class login extends HttpServlet {
         		 user.setPassword(password);
         		 
         		 HttpSession session = request.getSession();
-        		 session.setAttribute("user", user);
+        		 if(session.isNew()){
+        			 HashMap<String,user> userList = new HashMap<String,user>();
+        			 session.setAttribute("userList", userList);
+        		 }
+
+        	    HashMap<String,user> userMap = (HashMap<String,user>) session.getAttribute("userList");
+        	    userMap.put(username,user);
+        	    
+        		 
         		 JSONObject LoginSuccess = new JSONObject();
         		 LoginSuccess.put("status", true);
         		 out.println(LoginSuccess.toString());

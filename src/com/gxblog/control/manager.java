@@ -14,6 +14,7 @@ import com.sun.rowset.CachedRowSetImpl;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import java.io.*; 
+import java.util.HashMap;
 
 
 public class manager extends HttpServlet {
@@ -29,7 +30,7 @@ public class manager extends HttpServlet {
            JSONArray  allInfo = new JSONArray();
            
 		   HttpSession session = request.getSession();
-           user user = (user)session.getAttribute("user");
+		   HashMap userList = (HashMap)session.getAttribute("userList");
            CachedRowSetImpl RowSet = manageDAO.searchBlog(user.getUsername());
            try {
 			RowSet.first();
