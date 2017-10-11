@@ -59,7 +59,7 @@
     	  		   
     	  	   			event.preventDefault();
     	  	   			username = $("#username").val();
-    	  	   			password = $("#inputPassword3").val();    console.log(username+'.....'+password);
+    	  	   			password = $("#inputPassword3").val();
 
     	  	   			$.ajax({
     	  	   				url:'login',
@@ -71,13 +71,14 @@
     	  	   					 },
     	  	   			    success:function(data){
     	  	   			    		if(data.status){
+    	  	   			    			sessionStorage.setItem('name',data.name);
     	  	   			    			window.location.href = "html/background.html";
     	  	   			    		}else{
     	  	   			    			console.log("密码错误");
     	  	   			    		}
     	  	   			    },
-    	  	   			    error:function(){
-    	  	   			    	console.log("error");
+    	  	   			    error:function(jqXHR, textStatus, errorThrown){
+    	  	   			    	console.log(errorThrown);
     	  	   			    }
     	  	   			});
 

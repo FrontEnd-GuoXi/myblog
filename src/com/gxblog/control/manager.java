@@ -29,8 +29,9 @@ public class manager extends HttpServlet {
            PrintWriter out = response.getWriter();
            JSONArray  allInfo = new JSONArray();
            
-		   HttpSession session = request.getSession();
-		   HashMap userList = (HashMap)session.getAttribute("userList");
+		   HttpSession session = request.getSession(false);
+		   user user = (user) session.getAttribute("user");
+		   System.out.println("user_____"+user);
            CachedRowSetImpl RowSet = manageDAO.searchBlog(user.getUsername());
            try {
 			RowSet.first();

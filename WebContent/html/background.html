@@ -11,6 +11,16 @@
 	<script type="text/javascript" src="../libs/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 </head>
 <body>
+<header class="page-header">
+	<div class="exit-wrap">
+		<span class="glyphicon glyphicon-off"></span>
+		<span class="blog-exit">退出</span>
+	</div>
+	<div class="master-wrap">
+		<span class="glyphicon glyphicon-user"></span>
+		<span class="blog-master"></span>
+	</div>
+</header>
 <div class="container">
 	<div class="nav-container">
 		<ul class="list-group">
@@ -29,6 +39,8 @@
 		
         function init(){
         	$(".list-group-item").eq(1).trigger('click');
+        	console.log(sessionStorage.getItem('name')+".....");
+        	$(".blog-master").text(sessionStorage.getItem('name'));
         }
         
         $(".list-group-item").on('click',function(){

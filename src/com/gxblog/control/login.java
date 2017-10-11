@@ -9,11 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import com.gxblog.entity.user;
 import com.gxblog.dao.*;
 import org.json.simple.JSONObject;
 import java.util.HashMap;
+import com.sun.rowset.CachedRowSetImpl;
 
 public class login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -47,23 +49,23 @@ public class login extends HttpServlet {
         		 user.setPassword(password);
         		 
         		 HttpSession session = request.getSession();
-        		 if(session.isNew()){
-        			 HashMap<String,user> userList = new HashMap<String,user>();
-        			 session.setAttribute("userList", userList);
-        		 }
+        	     session.setAttribute("user", user);
 
-        	    HashMap<String,user> userMap = (HashMap<String,user>) session.getAttribute("userList");
-        	    userMap.put(username,user);
-        	    
-        		 
-        		 JSONObject LoginSuccess = new JSONObject();
+        		 CachedRowSetImpl RowSet = userDAO.UserInfo(username);
+         		 JSONObject LoginSuccess = new JSONObject();
         		 LoginSuccess.put("status", true);
+        		 try {
+        			RowSet.first();
+					LoginSuccess.put("name", RowSet.getString(1));
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
         		 out.println(LoginSuccess.toString());
         	}
         }else{
         	     JSONObject LoginDefeat = new JSONObject();
         	     LoginDefeat.put("status", false);
-        	     LoginDefeat.put("word","’À∫≈∫Õ√‹¬Î≤ª∆•≈‰£°£°£°");
+        	     LoginDefeat.put("HintInfo","’À∫≈∫Õ√‹¬Î≤ª∆•≈‰£°£°£°");
         	     out.println(LoginDefeat.toString());
         }
 		

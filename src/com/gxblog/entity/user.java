@@ -1,6 +1,8 @@
 package com.gxblog.entity;
 
-public class user {
+import java.io.Serializable;
+
+public class user implements Serializable {
      private String username = "root";
      private String password = "root";
      private String picture;

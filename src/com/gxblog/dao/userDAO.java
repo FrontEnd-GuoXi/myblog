@@ -4,6 +4,8 @@ import com.gxblog.db.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import com.sun.rowset.CachedRowSetImpl;
 
 public class userDAO {
     
@@ -27,5 +29,25 @@ public class userDAO {
 		 
 		 return isExist;
 	 }
+	
+	public static CachedRowSetImpl UserInfo(String username){
+		CachedRowSetImpl RowSet = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		Connection conn = DBconn.getConn();
+		String sql = "select name from user where username = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, username);
+			rs =  pstmt.executeQuery();
+			RowSet = new CachedRowSetImpl();
+			RowSet.populate(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return RowSet;
+	}
 	
 }
