@@ -14,7 +14,7 @@
 <header class="page-header">
 	<div class="exit-wrap">
 		<span class="glyphicon glyphicon-off"></span>
-		<span class="blog-exit">退出</span>
+		<a href="../exit" class="blog-exit">退出</a>
 	</div>
 	<div class="master-wrap">
 		<span class="glyphicon glyphicon-user"></span>
@@ -34,24 +34,44 @@
 
 	</div>
 </div>
+<div class="modal fade" tabindex="-1" role="dialog" id="hihtModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">提示消息</h4>
+      </div>
+      <div class="modal-body">
+        <p></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <script type="text/javascript">
 	$(function(){
 		
         function init(){
         	$(".list-group-item").eq(1).trigger('click');
-        	console.log(sessionStorage.getItem('name')+".....");
         	$(".blog-master").text(sessionStorage.getItem('name'));
         }
         
         $(".list-group-item").on('click',function(){
         	  $(this).addClass("active").siblings().removeClass("active");
         	  if($(this).index() == 1){
-        		  $(".list-container").load("./issue.html");
+        		  $(".list-container").load("./issue.html",function(){
+        		  		prepareIssue();
+        		  });
+        		  
         	  }else if($(this).index() == 2){
         	  	    var str = manageBlogAjax();
         	  	    $(".list-container").html(str);
         	  }
-        }); 
+        });
+
    init();
 
       function manageBlogAjax(){
@@ -61,6 +81,7 @@
       	  	    type:'GET',
       	  	    dataType:'json',
       	  	    async:false,
+      	  	    cache:false,
       	  	    success:function(data){
       	  	    	var dataArr = data;
       	  	    	for(var i=0; i<dataArr.length; i++){
@@ -83,10 +104,44 @@
 							</div>`;
       	  	    	 }
 
-      	  	    }
+      	  	    },
       	  });
       	  return str;
       }
+    function prepareIssue(){
+           
+		$('#textarea3').wysihtml5({
+			"font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+			"emphasis": true, //Italics, bold, etc. Default true
+			"lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+			"html": false, //Button which allows you to edit the generated HTML. Default false
+			"link": true, //Button to insert a link. Default true
+			"image": true, //Button to insert an image. Default true,
+			"color": true //Button to change color of font  
+		});
+		    
+		$("#SubmitIssue").on("click",function(event){
+		         event.preventDefault();
+		         $.ajax({
+		         	url:'',
+		         	type:'POST',
+		         	data:$("#ArticleIssue").serialize(),
+		         	success:function(){
+		         		    $(".modal-body > p").text("恭喜，您的文章发布成功！");
+		          		  	$('#hihtModal').modal('show');
+		         	},
+		         	error:function(){
+		     		    	$(".modal-body > p").text("抱歉！文章发布失败！");
+		          		  	$('#hihtModal').modal('show');
+		         	}
+
+		         });
+
+		    });
+           
+
+    }
+
 	});
 </script>
 </body>

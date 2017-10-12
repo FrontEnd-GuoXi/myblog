@@ -13,9 +13,12 @@
 	line-height: 50px;
 	text-align: center;
 }
-.master-wrap >span, .exit-wrap >span{
+.master-wrap >span, .exit-wrap >span , .exit-wrap >a{
 	font-size: 14px;
 	color: white;
+}
+.exit-wrap >a{
+	display: inline-block;
 }
 
 /* ———————————————————————————————————页头部分————————————————————————————————————— */
