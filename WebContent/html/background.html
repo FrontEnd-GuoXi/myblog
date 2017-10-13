@@ -67,15 +67,17 @@
         		  });
         		  
         	  }else if($(this).index() == 2){
-        	  	    var str = manageBlogAjax();
-        	  	    $(".list-container").html(str);
+        	  	    $(".list-container").load("./ListHead.html",function(){
+        	  	    	  var str = manageBlogAjax();
+        	  	    	  $(".wrap-list").append(str);
+        	  	    });
         	  }
         });
 
    init();
 
       function manageBlogAjax(){
-      	  var str = null;
+      	  var str = "";
       	  $.ajax({
       	  	    url:'../manageBlog',
       	  	    type:'GET',
@@ -85,13 +87,7 @@
       	  	    success:function(data){
       	  	    	var dataArr = data;
       	  	    	for(var i=0; i<dataArr.length; i++){
-      	  	        str = ` <div class=".container-fluid">
-								<div class="row">
-									<div class="col-md-1">序号</div>
-									<div class="col-md-8">博客标题</div>
-									<div class="col-md-3">操作</div>
-								</div>
-								<div class="row bg-success">
+      	  	       	    str += `<div class="row bg-danger">
 									<div class="col-md-1">${dataArr[i].id}</div>
 									<div class="col-md-8">${dataArr[i].title}</div>
 									<div class="col-md-3" style="line-height:37px;">
@@ -100,8 +96,7 @@
 										  <button type="button" class="btn btn-default">修改</button>
 										</div>
 									</div>
-								</div>
-							</div>`;
+								</div>`;
       	  	    	 }
 
       	  	    },
@@ -123,12 +118,23 @@
 		$("#SubmitIssue").on("click",function(event){
 		         event.preventDefault();
 		         $.ajax({
-		         	url:'',
+		         	url:'../issue',
 		         	type:'POST',
-		         	data:$("#ArticleIssue").serialize(),
-		         	success:function(){
-		         		    $(".modal-body > p").text("恭喜，您的文章发布成功！");
-		          		  	$('#hihtModal').modal('show');
+		         	dataType:'json',
+		         	data:{
+		         		'title':$("#BlogTitle").val(),
+		         		'author':$("#author").val(),
+		         		'content':$("#textarea3").val()
+		         	},
+		         	success:function(data){
+		         			if(data.status){
+			         		    $(".modal-body > p").text("恭喜，您的文章发布成功！");
+			          		  	$('#hihtModal').modal('show');
+		         			}else{
+		         				$(".modal-body > p").text("抱歉！文章发布失败！");
+		          		  		$('#hihtModal').modal('show');
+		         			}
+
 		         	},
 		         	error:function(){
 		     		    	$(".modal-body > p").text("抱歉！文章发布失败！");

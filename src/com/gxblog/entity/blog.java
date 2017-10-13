@@ -3,19 +3,22 @@ package com.gxblog.entity;
 import com.sun.rowset.CachedRowSetImpl;
 
 public class blog {
-    private CachedRowSetImpl RowSet = null;
 	private int id;
 	private String title;
 	private String content;
 	private int pub_time;
 	private String username;
 	private String author;
-	public CachedRowSetImpl getRowSet() {
-		return RowSet;
+
+	public blog(){}
+	
+	public blog(String title, String author, String content,String username){
+		this.title = title;
+		this.author = author;
+		this.content = content;
+		this.username = username;
 	}
-	public void setRowSet(CachedRowSetImpl rowSet) {
-		RowSet = rowSet;
-	}
+		
 	public int getId() {
 		return id;
 	}

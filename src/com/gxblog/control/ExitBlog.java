@@ -18,9 +18,11 @@ public class ExitBlog extends HttpServlet {
 		      HttpSession session = request.getSession(false);
 		      if(session == null){
 		    	  response.sendRedirect("./login.html");
+		      }else{
+			      session.removeAttribute("user");
+			      response.sendRedirect("./login.html");    
 		      }
-		      session.removeAttribute("user");
-		      response.sendRedirect("./login.html");          		
+      		
 	}
 
 
