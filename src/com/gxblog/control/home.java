@@ -34,7 +34,7 @@ public class home extends HttpServlet {
  
              
              try {
-				RowSet.first();
+				RowSet.absolute(1);
 	            for(int i=0; i<RowSet.size(); i++){
           	           JSONObject ArticleObj = new JSONObject();
           	           ArticleObj.put("id", RowSet.getInt(1));
@@ -46,8 +46,9 @@ public class home extends HttpServlet {
           	           ArticleArr.add(ArticleObj);
           	           RowSet.next();
 	             }
+	            RowSet.close();
 	            out.println(ArticleArr.toString());    
-			} catch (SQLException e) {
+			}catch (SQLException e) {
 				e.printStackTrace();
 			}
 

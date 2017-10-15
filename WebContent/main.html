@@ -26,22 +26,73 @@
 	    </div>
 	    </div>
 	</nav>
-	<div class="container-fluid">
-		<div class="jumbotron">
-		  <h1>Hello, world!</h1>
-		  <p>...</p>
-		  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-		</div>
-		<div class="jumbotron">
-		  <h1>Hello, world!</h1>
-		  <p>...</p>
-		  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-		</div>
-		<div class="jumbotron">
-		  <h1>Hello, world!</h1>
-		  <p>...</p>
-		  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-		</div>
-	</div>
+<div class="article-wrap">
+
+</div>
+	<footer class="page-wrap">
+		<nav aria-label="...">
+		  <ul class="pager">
+		    <li><a href="#">上一页</a></li>
+		    <li><a href="#">下一页</a></li>
+		  </ul>
+		</nav>
+	</footer>
 </body>
+
+<script type="text/javascript">
+	
+	$(function(){
+        var start = 0,
+            end = 2;
+
+
+        init();
+        function init(){
+        	promiseAjax(start,end).then(
+        		(str)=>{
+        			$(".article-wrap").html(str);
+        	},
+        		(jqXHR)=>{
+        			console.log(jqXHR);
+        		});
+        }
+
+ 		function promiseAjax(start,end){
+ 			return new Promise((resolve,reject)=>{
+ 				console.log("1")
+  					ajaxArticle(start,end,resolve,reject);
+ 			});
+ 		}	
+
+ 		function ajaxArticle(start,end,resolve,reject){
+	     	$.ajax({
+	     		url:'http://localhost:8080/myBlog/home?username=000000&start='+start+'&end='+end,
+	     		type:'GET',
+	     		dataType:'json',
+	     		success:function(data){
+	     			console.log("2")
+	     			  let str = "";
+	     			  for(let i=0; i<2; i++){
+						  str +=`<div class="article-row">`;
+		 						for(let j=0; j<3; j++){
+								   str +=`<div class="article-item">
+									      	<h2 class="article-title">${data.title}</h2>
+									      	<p class="article-content">${data.content}</p>
+									      </div>`;
+		 						}
+	 					   str += `</div>`;
+	     			  }
+	     			resolve(str);
+	     		},
+	     		error:function(jqXHR,textStatus,errorThrown){
+	     			console.log(textStatus,errorThrown);
+	     			reject(jqXHR);
+	     		}
+	     	});
+ 		}
+
+	});
+
+</script>
+
 </html>
