@@ -25,13 +25,21 @@ public class home extends HttpServlet {
              HttpSession session = null;
              
              PrintWriter out = response.getWriter();
-             
-             CachedRowSetImpl RowSet = articleDAO.showArticle(username, start, end);
-             
-
     	     session = request.getSession();
     	     JSONArray ArticleArr = (JSONArray) session.getAttribute("ArticleArr");
- 
+    	     
+    	     if(session.isNew()){
+        	     session.setAttribute("start", start);
+        	     session.setAttribute("end", end);	 
+    	     }else{
+    	    	 if( (int)session.getAttribute("start")==start ){
+    	    		  out.println(ArticleArr.toString()); 
+	       	    	  return;
+	       	     } 
+    	     }
+
+	        	           
+             CachedRowSetImpl RowSet = articleDAO.showArticle(username, start, end);
              
              try {
 				RowSet.absolute(1);
@@ -40,7 +48,7 @@ public class home extends HttpServlet {
           	           ArticleObj.put("id", RowSet.getInt(1));
           	           ArticleObj.put("title",RowSet.getString(2));
           	           ArticleObj.put("content",RowSet.getString(3));
-          	           ArticleObj.put("time",RowSet.getDate(4));
+          	           ArticleObj.put("time",RowSet.getDate(4).toString());
           	           ArticleObj.put("author",RowSet.getString(5));
                        
           	           ArticleArr.add(ArticleObj);
